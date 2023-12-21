@@ -20,14 +20,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 
 
 @Composable
@@ -37,8 +36,6 @@ fun BottomNavigationBar(
     navCont : NavController
 
 ) {
-    val navBackStackEntry by navCont.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
     Surface (color = MaterialTheme.colorScheme.background) {
         Row(
             modifier = modifier
@@ -47,109 +44,92 @@ fun BottomNavigationBar(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             // Home Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = {
-                              navCont.navigate("home"){
-                                  navCont.graph.startDestinationRoute?.let { route ->
-                                      popUpTo(route) {
-                                          saveState = true
-                                      }
-                                  }
-                                  // Avoid multiple copies of the same destination when
-                                  // reselecting the same item
-                                  launchSingleTop = true
-                                  // Restore state when reselecting a previously selected item
-                                  restoreState = true
-                              }
-
-
-                    },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.Home, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer,  modifier = Modifier.size(iconSize))
-                }
-                Text("Home", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
-
-            // Message Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = {
-
-                        navCont.navigate("add"){
-                            navCont.graph.startDestinationRoute?.let { route ->
-                                popUpTo(route) {
-                                    saveState = true
-                                }
+            BottomBarButton(
+                buttonName = "Home",
+                iconName = Icons.Outlined.Home,
+                backgroundColor = Color.Transparent,
+                iconSize = iconSize,
+                onClick = {
+                    navCont.navigate("home") {
+                        navCont.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
                             }
-                            // Avoid multiple copies of the same destination when
-                            // reselecting the same item
-                            launchSingleTop = true
-                            // Restore state when reselecting a previously selected item
-                            restoreState = true
                         }
-                    },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.AddCircleOutline, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(iconSize))
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
-                Text("Add", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            )
 
-            // Person Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Person button click */ },
-                    modifier = Modifier
-                        .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.DocumentScanner, contentDescription = null, tint = MaterialTheme.colorScheme.surface, modifier = Modifier.size(iconSize))
+            // Add Button
+            BottomBarButton(
+                buttonName = "Add",
+                iconName = Icons.Outlined.AddCircleOutline,
+                backgroundColor = Color.Transparent,
+                iconSize = iconSize,
+                onClick = {
+                    navCont.navigate("add") {
+                        navCont.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
-                Text("Scan", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            )
 
-            // Search Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Search button click */ },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.Restaurant, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(iconSize))
-                }
-                Text("Recipe", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            // Scan Button
+            BottomBarButton(
+                buttonName = "Scan",
+                iconName = Icons.Outlined.DocumentScanner,
+                backgroundColor = MaterialTheme.colorScheme.primary,
+                iconSize = iconSize,
+                onClick = {}
+            )
 
-            // Settings Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Settings button click */ },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.Fastfood, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer,  modifier = Modifier.size(iconSize))
-                }
-                Text("Product", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            // Recipe Button
+            BottomBarButton(
+                buttonName = "Recipe",
+                iconName = Icons.Outlined.Restaurant,
+                backgroundColor = Color.Transparent,
+                iconSize = iconSize,
+                onClick = {}
+            )
+
+            // Product button
+            BottomBarButton(
+                buttonName = "Product",
+                iconName = Icons.Outlined.Fastfood,
+                backgroundColor = Color.Transparent,
+                iconSize = iconSize,
+                onClick = {}
+            )
         }
     }
 
+}
+
+@Composable
+fun BottomBarButton(buttonName: String,
+                    iconName: ImageVector,
+                    backgroundColor: Color,
+                    iconSize: Dp,
+                    onClick: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .background(color = backgroundColor, shape = CircleShape)
+                .padding(4.dp)
+        ) {
+            Icon(imageVector = iconName, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(iconSize))
+        }
+        Text(buttonName, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
+    }
 }
