@@ -68,7 +68,7 @@ Row(
             .weight(1f)
             .clickable { }
     ){
-        Text(text = "Search product",modifier = Modifier.padding(8.dp), color= MaterialTheme.colorScheme.onPrimaryContainer, style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Search product",modifier = Modifier.padding(16.dp), color= MaterialTheme.colorScheme.onPrimaryContainer, style = MaterialTheme.typography.bodyLarge)
     }
     Surface(
         color = MaterialTheme.colorScheme.background,
@@ -76,7 +76,7 @@ Row(
             .weight(1f)
             .clickable { }
     ){
-        Text(text = "Search product",modifier = Modifier.padding(8.dp), color=MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Search recipe",modifier = Modifier.padding(16.dp), color=MaterialTheme.colorScheme.onBackground, style = MaterialTheme.typography.bodyLarge)
     }
 }
 }

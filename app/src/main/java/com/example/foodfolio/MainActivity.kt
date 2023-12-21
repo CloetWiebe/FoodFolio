@@ -64,7 +64,6 @@ private fun AddItemPage(){
             Column(
                 modifier = Modifier
                     .padding(innerPadding),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
             ){
                 TopPartAddItem()
                 AddItemList()
