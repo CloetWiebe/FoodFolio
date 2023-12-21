@@ -38,7 +38,7 @@ fun BottomNavigationBar(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             // Home Button
