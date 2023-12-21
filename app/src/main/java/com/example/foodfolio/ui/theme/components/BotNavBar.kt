@@ -20,20 +20,25 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.compose.AppTheme
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 
 @Composable
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
-    iconSize: Dp = 24.dp // Default icon size
+    iconSize: Dp = 24.dp, // Default icon size,
+    navCont : NavController
+
 ) {
+    val navBackStackEntry by navCont.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
     Surface (color = MaterialTheme.colorScheme.background) {
         Row(
             modifier = modifier
@@ -46,7 +51,22 @@ fun BottomNavigationBar(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 IconButton(
-                    onClick = { /* Handle Home button click */ },
+                    onClick = {
+                              navCont.navigate("home"){
+                                  navCont.graph.startDestinationRoute?.let { route ->
+                                      popUpTo(route) {
+                                          saveState = true
+                                      }
+                                  }
+                                  // Avoid multiple copies of the same destination when
+                                  // reselecting the same item
+                                  launchSingleTop = true
+                                  // Restore state when reselecting a previously selected item
+                                  restoreState = true
+                              }
+
+
+                    },
                     modifier = Modifier
                         .background(color = Color.Transparent, shape = CircleShape)
                         .padding(4.dp)
@@ -61,7 +81,21 @@ fun BottomNavigationBar(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 IconButton(
-                    onClick = { /* Handle Message button click */ },
+                    onClick = {
+
+                        navCont.navigate("add"){
+                            navCont.graph.startDestinationRoute?.let { route ->
+                                popUpTo(route) {
+                                    saveState = true
+                                }
+                            }
+                            // Avoid multiple copies of the same destination when
+                            // reselecting the same item
+                            launchSingleTop = true
+                            // Restore state when reselecting a previously selected item
+                            restoreState = true
+                        }
+                    },
                     modifier = Modifier
                         .background(color = Color.Transparent, shape = CircleShape)
                         .padding(4.dp)
@@ -118,12 +152,4 @@ fun BottomNavigationBar(
         }
     }
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun BottomNavigationBarPreview() {
-    AppTheme {
-        BottomNavigationBar(iconSize = 32.dp)
-    }
 }
