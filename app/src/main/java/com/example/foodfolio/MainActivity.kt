@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
 import com.example.foodfolio.ui.theme.components.BottomNavigationBar
 import com.example.foodfolio.ui.theme.components.ShowSummary
+import com.example.foodfolio.ui.theme.components.TopPartAddItem
 import com.example.foodfolio.ui.theme.components.TopPartHomePage
 
 
@@ -22,7 +23,7 @@ class MainActivity : ComponentActivity() {
             super.onCreate(savedInstanceState)
             setContent {
                 AppTheme {
-                    HomePage()
+                    TopPartAddItem()
                 }
             }
         }
