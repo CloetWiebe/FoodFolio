@@ -5,20 +5,25 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.compose.AppTheme
 
 @Composable
 fun Navigation(navController: NavHostController, route: String) {
     NavHost(navController = navController, startDestination = route) {
         composable("home") {
-            Column {
-                TopPartHomePage()
-                ShowSummary()
+            AppTheme {
+                Column {
+                    TopPartHomePage()
+                    ShowSummary()
+                }
             }
         }
         composable("add") {
-            Column {
-                TopPartAddItem()
-                AddItemList()
+            AppTheme {
+                Column {
+                    TopPartAddItem()
+                    AddItemList()
+                }
             }
         }
         composable("scan") {

@@ -51,6 +51,7 @@ private  fun SummaryIcons(){
 @Composable
 private fun SummaryListItem(itemInfo: String) {
     val (itemName, itemCalories) = itemInfo.split(":")
+    // Log the text color and theme changes
     Surface(
         color = MaterialTheme.colorScheme.primary,
         shape = RoundedCornerShape(8.dp), // Adjust the radius as needed
@@ -90,7 +91,7 @@ fun SummaryTitle(){
 
 @Composable
 fun ShowSummary(){
-    val myItems = listOf("Kotelet:602kcal", "Pudduing:300kcal", "Hamburger:700kcal")
+    val myItems = listOf("Kotelet:602kcal", "Pudding:300kcal", "Hamburger:700kcal")
     Column(
         Modifier
             .fillMaxWidth()

@@ -48,6 +48,7 @@ fun BottomNavigationBar(
                 buttonName = "Home",
                 iconName = Icons.Outlined.Home,
                 backgroundColor = Color.Transparent,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 iconSize = iconSize,
                 onClick = {
                     navCont.navigate("home") {
@@ -67,6 +68,7 @@ fun BottomNavigationBar(
                 buttonName = "Add",
                 iconName = Icons.Outlined.AddCircleOutline,
                 backgroundColor = Color.Transparent,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 iconSize = iconSize,
                 onClick = {
                     navCont.navigate("add") {
@@ -86,6 +88,7 @@ fun BottomNavigationBar(
                 buttonName = "Scan",
                 iconName = Icons.Outlined.DocumentScanner,
                 backgroundColor = MaterialTheme.colorScheme.primary,
+                iconColor = MaterialTheme.colorScheme.onPrimary,
                 iconSize = iconSize,
                 onClick = {}
             )
@@ -94,6 +97,7 @@ fun BottomNavigationBar(
             BottomBarButton(
                 buttonName = "Recipe",
                 iconName = Icons.Outlined.Restaurant,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 backgroundColor = Color.Transparent,
                 iconSize = iconSize,
                 onClick = {}
@@ -103,6 +107,7 @@ fun BottomNavigationBar(
             BottomBarButton(
                 buttonName = "Product",
                 iconName = Icons.Outlined.Fastfood,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 backgroundColor = Color.Transparent,
                 iconSize = iconSize,
                 onClick = {}
@@ -116,6 +121,7 @@ fun BottomNavigationBar(
 fun BottomBarButton(buttonName: String,
                     iconName: ImageVector,
                     backgroundColor: Color,
+                    iconColor: Color,
                     iconSize: Dp,
                     onClick: () -> Unit
 ) {
@@ -128,7 +134,7 @@ fun BottomBarButton(buttonName: String,
                 .background(color = backgroundColor, shape = CircleShape)
                 .padding(4.dp)
         ) {
-            Icon(imageVector = iconName, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(iconSize))
+            Icon(imageVector = iconName, contentDescription = null, tint = iconColor, modifier = Modifier.size(iconSize))
         }
         Text(buttonName, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
     }

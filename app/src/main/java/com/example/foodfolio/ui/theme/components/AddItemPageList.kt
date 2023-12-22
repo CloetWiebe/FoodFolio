@@ -57,7 +57,7 @@ fun AddItemListItem(itemInfo: String) {
 
 @Composable
 fun AddItemList(){
-    val myItems = listOf("Kotelet:602kcal", "Pudding:300kcal", "Hamburger:700kcal", "Appel: 50kcal", "Chocolade:100kcal", "Yoghurt:80kcal")
+    val myItems = listOf("Kotelet:602kcal", "Pudding:300kcal", "Hamburger:700kcal", "Appel:50kcal", "Chocolade:100kcal", "Yoghurt:80kcal")
     Column(
         Modifier
             .fillMaxWidth()
