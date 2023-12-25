@@ -30,7 +30,11 @@ import androidx.compose.ui.unit.dp
 import com.example.foodfolio.ui.theme.PRODUCT_LIST
 
 
-data class Product(val name: String, val kcal: Int)
+data class Product(val name: String, val kcal: Int){
+    fun getKcalString(): String{
+        return "${kcal}kcal"
+    }
+}
 
 @Composable
 fun ProductPage() {
@@ -45,7 +49,7 @@ fun ProductPage() {
 fun ProductItemList(products: List<Product>) {
     Scaffold(
         floatingActionButton = {
-            AddButton(onClick = {})
+            FloatingAddButton("Add product",onClick = {})
         }
     ) {innerPadding ->
         Column(
@@ -60,16 +64,6 @@ fun ProductItemList(products: List<Product>) {
             }
         }
     }
-}
-@Composable
-fun AddButton(onClick: () -> Unit) {
-    ExtendedFloatingActionButton(
-        onClick = onClick,
-        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-        contentColor = MaterialTheme.colorScheme.secondary,
-        icon = { Icon(Icons.Filled.Add, "Add item button") },
-        text = { Text(text = "Add item") },
-    )
 }
 
 @Composable
@@ -92,7 +86,7 @@ fun ProductItem(product: Product) {
             ) {
                 Text(text = product.name, color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.labelLarge)
                 Spacer(modifier =Modifier.size(4.dp))
-                Text(text = "${product.kcal}kcal", color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.bodyMedium)
+                Text(text = product.getKcalString(), color = MaterialTheme.colorScheme.onPrimary, style = MaterialTheme.typography.bodyMedium)
             }
             ProductEditIcons()
         }
@@ -171,7 +165,7 @@ fun ProductPagePreview() {
 @Preview
 @Composable
 fun AddButtonPreview() {
-    AddButton {
-
+    FloatingAddButton(text = "Add product") {
+        
     }
 }

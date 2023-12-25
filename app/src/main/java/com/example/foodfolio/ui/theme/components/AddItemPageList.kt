@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,10 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
+import com.example.foodfolio.ui.theme.PRODUCT_LIST
 
 @Composable
-fun AddItemListItem(itemInfo: String) {
-    val (itemName, itemCalories) = itemInfo.split(":")
+fun AddItemListItem(item: Product) {
     Surface(
         color = MaterialTheme.colorScheme.primary,
         shape = RoundedCornerShape(8.dp), // Adjust the radius as needed
@@ -40,13 +41,13 @@ fun AddItemListItem(itemInfo: String) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = itemName,
+                    text = item.name,
                     color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.labelLarge
-                )
+                );
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
-                    text = itemCalories,
+                    text = item.getKcalString(),
                     color = MaterialTheme.colorScheme.onPrimary,
                     style = MaterialTheme.typography.bodyMedium
                 )
@@ -56,20 +57,25 @@ fun AddItemListItem(itemInfo: String) {
 }
 
 @Composable
-fun AddItemList(){
-    val myItems = listOf("Kotelet:602kcal", "Pudding:300kcal", "Hamburger:700kcal", "Appel:50kcal", "Chocolade:100kcal", "Yoghurt:80kcal")
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-
-        LazyColumn {
-            items(items = myItems) { item -> AddItemListItem(itemInfo = item) }
+fun AddItemList() {
+    Scaffold(
+        floatingActionButton = {
+            FloatingAddButton(text = "Add item", onClick = {})
+        }
+    ) { paddingValues ->
+        Column(modifier = Modifier.padding(paddingValues)) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                items(items = PRODUCT_LIST) { item ->
+                    AddItemListItem(item = item)
+                }
+            }
         }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun AddItemListPreview(){
