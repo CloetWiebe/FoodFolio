@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.AppTheme
@@ -20,19 +22,32 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                val navController = rememberNavController()
-                Scaffold(
-                    bottomBar = { BottomNavigationBar(navCont = navController) }
-                ) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding),
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                    ) {
-                        Navigation(navController = navController, "home")
-                    }
-                }
+                FoodFolio();
             }
         }
+    }
+}
+
+@Composable
+fun FoodFolio(){
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navCont = navController) }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Navigation(navController = navController, "home")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun FoodFolioPreview() {
+    AppTheme {
+        FoodFolio();
     }
 }

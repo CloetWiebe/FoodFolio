@@ -5,25 +5,22 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.compose.AppTheme
+import com.example.foodfolio.ui.theme.PRODUCT_LIST
 
 @Composable
 fun Navigation(navController: NavHostController, route: String) {
     NavHost(navController = navController, startDestination = route) {
         composable("home") {
-            AppTheme {
-                Column {
-                    TopPartHomePage()
-                    ShowSummary()
-                }
+            Column {
+                TopPartHomePage()
+                ShowSummary(PRODUCT_LIST)
             }
+
         }
         composable("add") {
-            AppTheme {
-                Column {
-                    TopPartAddItem()
-                    AddItemList()
-                }
+            Column {
+                TopPartAddItem()
+                AddItemList()
             }
         }
         composable("scan") {
@@ -33,7 +30,7 @@ fun Navigation(navController: NavHostController, route: String) {
 
         }
         composable("product") {
-
+            ProductPage();
         }
 
     }

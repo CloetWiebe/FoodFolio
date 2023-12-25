@@ -110,7 +110,17 @@ fun BottomNavigationBar(
                 iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
                 backgroundColor = Color.Transparent,
                 iconSize = iconSize,
-                onClick = {}
+                onClick = {
+                    navCont.navigate("product") {
+                        navCont.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                }
             )
         }
     }
