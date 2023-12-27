@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -31,7 +32,9 @@ fun HamburgerMenuIcon(onClick: () -> Unit) {
         Icon(
             imageVector = Icons.Default.Menu,
             contentDescription = "Hamburger Menu",
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(40.dp)
+
         )
     }
 }
@@ -59,7 +62,7 @@ fun ArrowIcon(icon: ImageVector, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun TopAppBarContent() {
+fun HeaderHomePage() {
     Column(
         modifier = Modifier,
         verticalArrangement = Arrangement.Top
@@ -79,13 +82,13 @@ fun TopAppBarContent() {
 }
 
 @Composable
-fun TopPart(){
+fun TopPartHomePage(){
     Surface(
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
         ) {
-            TopAppBarContent()
+            HeaderHomePage()
             CalorieGraphs()
         }
     }
@@ -96,7 +99,7 @@ fun TopPart(){
 @Composable
 fun TopPartPreview() {
     AppTheme {
-        TopPart()
+        TopPartHomePage()
     }
 }
 
@@ -120,6 +123,6 @@ fun HamburgerMenuIconPreview() {
 @Composable
 fun TopAppBarContentPreview() {
     AppTheme {
-        TopAppBarContent()
+        HeaderHomePage()
     }
 }

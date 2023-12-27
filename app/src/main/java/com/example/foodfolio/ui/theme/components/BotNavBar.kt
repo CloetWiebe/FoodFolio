@@ -23,107 +23,129 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.compose.AppTheme
+import androidx.navigation.NavController
 
 
 @Composable
 fun BottomNavigationBar(
     modifier: Modifier = Modifier,
-    iconSize: Dp = 24.dp // Default icon size
+    iconSize: Dp = 24.dp, // Default icon size,
+    navCont : NavController
+
 ) {
     Surface (color = MaterialTheme.colorScheme.background) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             // Home Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Home button click */ },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.Home, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer,  modifier = Modifier.size(iconSize))
+            BottomBarButton(
+                buttonName = "Home",
+                iconName = Icons.Outlined.Home,
+                backgroundColor = Color.Transparent,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                iconSize = iconSize,
+                onClick = {
+                    navCont.navigate("home") {
+                        navCont.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
-                Text("Home", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            )
 
-            // Message Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Message button click */ },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.AddCircleOutline, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(iconSize))
+            // Add Button
+            BottomBarButton(
+                buttonName = "Add",
+                iconName = Icons.Outlined.AddCircleOutline,
+                backgroundColor = Color.Transparent,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                iconSize = iconSize,
+                onClick = {
+                    navCont.navigate("add") {
+                        navCont.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
-                Text("Add", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            )
 
-            // Person Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Person button click */ },
-                    modifier = Modifier
-                        .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.DocumentScanner, contentDescription = null, tint = MaterialTheme.colorScheme.surface, modifier = Modifier.size(iconSize))
-                }
-                Text("Scan", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            // Scan Button
+            BottomBarButton(
+                buttonName = "Scan",
+                iconName = Icons.Outlined.DocumentScanner,
+                backgroundColor = MaterialTheme.colorScheme.primary,
+                iconColor = MaterialTheme.colorScheme.onPrimary,
+                iconSize = iconSize,
+                onClick = {}
+            )
 
-            // Search Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Search button click */ },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.Restaurant, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer, modifier = Modifier.size(iconSize))
-                }
-                Text("Recipe", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            // Recipe Button
+            BottomBarButton(
+                buttonName = "Recipe",
+                iconName = Icons.Outlined.Restaurant,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                backgroundColor = Color.Transparent,
+                iconSize = iconSize,
+                onClick = {}
+            )
 
-            // Settings Button
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                IconButton(
-                    onClick = { /* Handle Settings button click */ },
-                    modifier = Modifier
-                        .background(color = Color.Transparent, shape = CircleShape)
-                        .padding(4.dp)
-                ) {
-                    Icon(imageVector = Icons.Outlined.Fastfood, contentDescription = null, tint = MaterialTheme.colorScheme.onSecondaryContainer,  modifier = Modifier.size(iconSize))
+            // Product button
+            BottomBarButton(
+                buttonName = "Product",
+                iconName = Icons.Outlined.Fastfood,
+                iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                backgroundColor = Color.Transparent,
+                iconSize = iconSize,
+                onClick = {
+                    navCont.navigate("product") {
+                        navCont.graph.startDestinationRoute?.let { route ->
+                            popUpTo(route) {
+                                saveState = true
+                            }
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
-                Text("Product", color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
-            }
+            )
         }
     }
 
 }
 
-@Preview(showBackground = true)
 @Composable
-fun BottomNavigationBarPreview() {
-    AppTheme {
-        BottomNavigationBar(iconSize = 32.dp)
+fun BottomBarButton(buttonName: String,
+                    iconName: ImageVector,
+                    backgroundColor: Color,
+                    iconColor: Color,
+                    iconSize: Dp,
+                    onClick: () -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier
+                .background(color = backgroundColor, shape = CircleShape)
+                .padding(4.dp)
+        ) {
+            Icon(imageVector = iconName, contentDescription = null, tint = iconColor, modifier = Modifier.size(iconSize))
+        }
+        Text(buttonName, color = MaterialTheme.colorScheme.onSecondaryContainer, style = MaterialTheme.typography.labelLarge)
     }
 }

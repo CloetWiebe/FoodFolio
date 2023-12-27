@@ -11,51 +11,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.compose.AppTheme
 import com.example.foodfolio.ui.theme.components.BottomNavigationBar
-import com.example.foodfolio.ui.theme.components.ShowSummary
-import com.example.foodfolio.ui.theme.components.TopPart
+import com.example.foodfolio.ui.theme.components.Navigation
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContent {
-                AppTheme {
-                    Scaffold(
-                        bottomBar = {BottomNavigationBar(iconSize = 32.dp)}
-                    ) {innerPadding ->
-                        Column(
-                            modifier = Modifier
-                                .padding(innerPadding),
-                            verticalArrangement = Arrangement.spacedBy(16.dp),
-                        ){
-                            TopPart()
-                            ShowSummary()
-                        }
-
-                    }
-                }
+        super.onCreate(savedInstanceState)
+        setContent {
+            AppTheme {
+                FoodFolio();
             }
         }
     }
+}
 
-@Preview(showBackground = true)
 @Composable
-private fun HomeScreenPreview(){
-    AppTheme {
-        Scaffold(
-            bottomBar = {BottomNavigationBar(iconSize = 32.dp)}
-        ) {innerPadding ->
-            Column(
-                modifier = Modifier
-                    .padding(innerPadding),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-            ){
-                TopPart()
-                ShowSummary()
-            }
-
+fun FoodFolio(){
+    val navController = rememberNavController()
+    Scaffold(
+        bottomBar = { BottomNavigationBar(navCont = navController) }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            Navigation(navController = navController, "home")
         }
+    }
+}
+
+@Preview
+@Composable
+fun FoodFolioPreview() {
+    AppTheme {
+        FoodFolio();
     }
 }
